@@ -1,0 +1,16 @@
+Simple Play 2.1 application with WebSocket base usage
+=====================================
+
+Wrapper around web socket usage
+with an example integrated
+pure functional
+connection/disconnection management via client/server ping/pong
+
+for usage refer to
+actors.ws.ExampleWs.scala
+views.index.scala.html
+controllers.Application.scala
+
+first implementation
+open to improvement and suggestions!!!
+(maybe can become a Play plugin??)
