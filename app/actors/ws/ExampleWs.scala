@@ -26,7 +26,6 @@ class ExampleWs extends WSManagerActor {
     	    ))
       }
     case AlertForSomething =>
-      		play.api.Logger.debug("Son qui...")
     	  wsClient ! JsToClient(Json.obj(
     		  "broadcast" -> "fromServer"
           ))

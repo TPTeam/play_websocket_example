@@ -5,12 +5,10 @@ import play.Project._
 object ApplicationBuild extends Build {
 
   val appName         = "websocket_example"
-  val appVersion      = "1.0-SNAPSHOT"
+  val appVersion      = "1.1"
 
   val appDependencies = Seq(
-    "websocket_plugin" % "websocket_plugin_2.10" % "1.0-SNAPSHOT",
-    jdbc,
-    anorm
+    "websocket_plugin" % "websocket_plugin_2.10" % "0.4.0"
   )
 
 

@@ -1,0 +1,89 @@
+@(message: String)(implicit request: RequestHeader)
+
+@import helper._
+
+@main("Websocket Stateless DEMO") {
+
+    <div class="centered main">
+    
+    <ul class="menu">
+		 <li>
+		    <h2 id='status'>...waiting...</h2>
+		</li>
+	</ul>
+    
+	    <h1 id="welcome">@message</h1>
+	
+	    <ul>
+	   	 	<li id="open">
+	    		<a href='#'>Open WebSocket</a>
+	    	</li>
+	    	<li id="sendBroadcast" class="disabled">
+	    		<a href='#'>Send broadcast</a>
+	    	</li>
+	    	<li id="sendEcho" class="disabled">
+	    		<a href='#'>Send echo</a>
+	    	</li>
+	    	<li id="botherServer" class="disabled">
+	    		<a href='#'>...wake up mr.Server!</a>
+	    	</li>
+	    </ul>
+	    <h2 id="message">...</h2>
+    </div>
+    
+    @ws("WS_Prova")
+    <script type="text/javascript" charset="utf-8">
+					$(function() {
+
+						WS_Prova.address = "@routes.Application.ws.webSocketURL()"
+
+						WS_Prova.on('open', function(e) {
+							$('#status').text("WebSocket: opened").addClass('opened');
+						})
+						
+						WS_Prova.on('message', function(e) {
+							$('#message').text("Received: " + JSON.stringify(e.content));
+						})
+						
+						WS_Prova.on('close', function(e) {
+							$('#status').text("WebSocket: closed").addClass('closed');
+							$('#message').text("...");
+							
+						})
+										
+						$('#sendBroadcast').click(function(e) {
+							var obj = {
+								"echo" : false,
+								"toeveryone" : true
+							}
+
+							WS_Prova.send(obj);
+						})
+
+						$('#sendEcho').click(function(e) {
+							var obj = {
+								"echo" : true,
+								"toeveryone" : false
+							}
+
+							WS_Prova.send(obj);
+						})
+
+						$('#open').click(function(e) {
+							WS_Prova.init();
+							$('li').removeClass('disabled');
+							$('#open').off('click').click(function(e) {
+								WS_Prova.close();
+								$('#welcome').text('Just closed! Press F5 and start again :-)');
+								$('li').addClass('disabled');
+							}).find('a').text("Close WebSocket");
+						})
+						
+						$('#botherServer').click(function(e) {
+							$.get('/test');
+						})
+
+					});
+				</script>
+    
+}
