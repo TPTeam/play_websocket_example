@@ -52,6 +52,7 @@
 						})
 										
 						$('#sendBroadcast').click(function(e) {
+							e.preventDefault();
 							var obj = {
 								"echo" : false,
 								"toeveryone" : true
@@ -61,6 +62,7 @@
 						})
 
 						$('#sendEcho').click(function(e) {
+							e.preventDefault();
 							var obj = {
 								"echo" : true,
 								"toeveryone" : false
@@ -70,16 +72,14 @@
 						})
 
 						$('#open').click(function(e) {
+							e.preventDefault();
 							WS_Prova.init();
 							$('li').removeClass('disabled');
-							$('#open').off('click').click(function(e) {
-								WS_Prova.close();
-								$('#welcome').text('Just closed! Press F5 and start again :-)');
-								$('li').addClass('disabled');
-							}).find('a').text("Close WebSocket");
+							$('#open').off('click').addClass('disabled')
 						})
 						
 						$('#botherServer').click(function(e) {
+							e.preventDefault();
 							$.get('/test');
 						})
 

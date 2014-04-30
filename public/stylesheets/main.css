@@ -162,6 +162,6 @@ table.dataTable tr.odd td.sorting_1 {
 	background: aliceblue !important;
 }
 .disabled a {
-	color: grey !important;
+	color: #ddd !important;
 	pointer-events: none;
 }
