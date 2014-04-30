@@ -16,4 +16,4 @@ This little webapp implements both actors type: stateless and statefull.
 - Play with messages (echo, broadcast from client, broadcast from server)
 
 ##Notes
-Also available as Typesafe Activator Template.
+Also available as [Typesafe Activator Template](https://typesafe.com/activator/template/play-websocket).
