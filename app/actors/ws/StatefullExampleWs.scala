@@ -22,29 +22,23 @@ class StatefullExampleWs extends StatefullWSManagerActor {
     case x: JsFromClient =>
       (x.request.session.get("uuid")) match {
         case Some(uuid) =>
-          context.become(withUuid(uuid, maxAnswares), true)
+          context.become(withUuid(uuid, 1), true)
           self ! x
         case _ =>
       }
     }    
   }
   
-  val maxAnswares = 3
-  
-  def withUuid(uuid: String, countdown: Int): Receive = {
+  def withUuid(uuid: String, countup: Int): Receive = {
     manageBroadcast orElse {
     case x: JsFromClient =>
       ((x.elem\"echo").asOpt[Boolean]) match {
         case Some(true) =>
-          if (countdown>1) {
           context.parent ! JsToClient(Json.obj(
         		  				"answareToMe" -> true,
-        		  				"uuid" -> uuid))        		  				
-          context.become(withUuid(uuid,countdown-1), true)
-          } else 
-            context.parent ! JsToClient(Json.obj(
-        		  				"answareToMe" -> true,
-        		  				"boredToAnsware" -> true))
+        		  				"uuid" -> uuid,
+        		  				"count" -> countup))
+          context.become(withUuid(uuid,countup+1), true)
         case _ => 
           StatefullExampleWs.actor ! JsToClient(Json.obj("broadcast" -> "fromOneClient"))
       }
