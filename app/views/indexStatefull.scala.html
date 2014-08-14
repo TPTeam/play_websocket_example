@@ -35,7 +35,7 @@
     <script type="text/javascript" charset="utf-8">
 					$(function() {
 
-						WS_Prova.address = "@routes.Application.ws.webSocketURL()"
+            WS_Prova.address = "@routes.Application.statefullWs.webSocketURL()"
 
 						WS_Prova.on('open', function(e) {
 							$('#status').text("WebSocket: opened").addClass('opened');
